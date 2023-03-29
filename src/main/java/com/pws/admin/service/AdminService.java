@@ -1,7 +1,6 @@
 package com.pws.admin.service;
 
-import com.pws.admin.dto.PermissionDto;
-import com.pws.admin.dto.UserXrefDto;
+import com.pws.admin.dto.*;
 import com.pws.admin.entity.*;
 import org.springframework.http.ResponseEntity;
 
@@ -13,7 +12,7 @@ public interface AdminService {
     Role addRole(Role role);
 
 
-    User addUser(User user);
+    User userSignUp(SignUpDto signUpDto) throws Exception;
 
     void addOrUpdateUserRoleXRef(UserXrefDto userXrefDto) throws Exception;
 
@@ -69,5 +68,19 @@ public interface AdminService {
 
     void deleteRole(Integer id);
 
+    public void changePassword(PasswordDTO passwordDTO) throws Exception ;
 
+    public void resetPassword(String email, String newPassword) throws Exception;
+
+    void updateResetPasswordToken(String token, String email)throws Exception;
+
+    public String showResetPasswordForm( String token, Model model) throws Exception;
+
+    public String processResetPassword(String token, String password, Model model)throws Exception;
+
+    public User getByResetPasswordToken(String token)throws Exception;
+
+    public void updatePassword(User user, String newPassword) throws Exception;
+
+    void updatePassword(ResetUpdatepassword resetUpdatepassword) throws Exception;
 }

@@ -1,9 +1,9 @@
 package com.pws.admin.entity;
 
+import com.pws.admin.utility.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,19 +11,11 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Permission {
+public class Permission extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id ;
 
-//    @Column(name = "updated_at",nullable = false)
-//    private Date updatedAt;
-//    @Column(name = "created_at",nullable = false)
-//    private Date createdAt;
-//    @Column(name = "created_by",nullable = false)
-//    private Integer createdBy;
-//    @Column(name = "updated_by",nullable = false)
-//    private Integer updatedBy;
     @Column(name = "is_active", nullable = true)
     private Boolean isActive;
 
@@ -48,3 +40,15 @@ public class Permission {
 
     private Role role;
 }
+
+
+
+
+//    @Column(name = "updated_at",nullable = false)
+//    private Date updatedAt;
+//    @Column(name = "created_at",nullable = false)
+//    private Date createdAt;
+//    @Column(name = "created_by",nullable = false)
+//    private Integer createdBy;
+//    @Column(name = "updated_by",nullable = false)
+//    private Integer updatedBy;

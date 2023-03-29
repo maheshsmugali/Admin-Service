@@ -1,50 +1,91 @@
 package com.pws.admin.entity;
 
+import com.pws.admin.utility.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
-
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
+public class User extends AuditModel implements UserDetails, Serializable {
 
-@Entity
-@Table(schema = "user")
-public class User {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-    @Column(nullable = false)
-    private String email;
-    @NonNull
-    @CreatedDate
-    private Date dob;
-    @NonNull
-    private Integer phone;
-    @NonNull
-    private String password;
-//    @NonNull
-//    @LastModifiedDate
-//    private Date updatedAt=new Date();
-//    @NonNull
-//    @CreatedDate
-//    private Date createdAt =new Date();
-//    @NonNull
-//    private Integer createdBy;
-//    @NonNull
-//    private Integer updatedBy;
+    @Column(name = "id")
+    private int id;
 
+    @Column(name = "first_name", length = 50, nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", length = 50, nullable = false)
+    private String lastName;
+
+    @Column(name = "dob", nullable = false)
+    private Date dob;
+
+    @Column(name = "email", length = 100, nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "phone_number", nullable = false)
+    private long phoneNumber;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "ref_token")
+    private String resetPasswordToken;
+
+
+    @Column(name = "is_active", nullable = false)
+    @ColumnDefault("TRUE")
+    private Boolean isActive;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return isActive;
+    }
+    public boolean matches(String oldPassword, String password) {
+        return false;
+    }
 }

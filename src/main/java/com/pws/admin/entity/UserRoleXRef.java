@@ -1,32 +1,22 @@
 package com.pws.admin.entity;
 
+import com.pws.admin.utility.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class UserRoleXRef implements Serializable {
+public class UserRoleXRef extends AuditModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ref_id", unique = true, nullable = false)
     private Integer refId;
-    //    @NonNull
-//    private Date updatedAt;
-//    @NonNull
-//    private Date createdAt;
-//    @NonNull
-//    private Integer createdBy;
-//    @NonNull
-//    private Integer updatedBy;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
