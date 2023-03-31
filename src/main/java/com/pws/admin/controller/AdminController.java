@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
     @Autowired
     public AdminService service;
