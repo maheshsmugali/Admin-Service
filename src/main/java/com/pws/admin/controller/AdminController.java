@@ -83,7 +83,7 @@ public class AdminController {
         return ResponseEntity.ok(token);
     }
 
-    @RequestMapping(value = "/refreshtoken", method = RequestMethod.GET)
+    @GetMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(HttpServletRequest httpServletRequest) throws Exception {
         // From the HttpRequest get the claims
         DefaultClaims claims = (io.jsonwebtoken.impl.DefaultClaims) httpServletRequest.getAttribute("claims");
@@ -197,6 +197,11 @@ public class AdminController {
         return service.getUserById(id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @ApiResponses(value = {@ApiResponse(responseCode = "200", content = {@Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerLogsConstants.MODEL_GET_BY_ID_200_SUCCESSFUL)})}), @ApiResponse(responseCode = "400", content = {@Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerLogsConstants.MODEL_GET_BY_ID_400_FAILURE)})})})
     @Operation(summary = "Getting Model")
     @GetMapping("/getModel")
@@ -204,6 +209,11 @@ public class AdminController {
         return service.getModelById(id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @ApiResponses(value = {@ApiResponse(responseCode = "200", content = {@Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerLogsConstants.USER_ROLE_X_REF_GET_BY_ID_200_SUCCESSFUL)})}), @ApiResponse(responseCode = "400", content = {@Content(mediaType = "application/json", examples = {@ExampleObject(value = SwaggerLogsConstants.USER_ROLE_X_REF_GET_BY_ID_400_FAILURE)})})})
     @Operation(summary = "Getting UserRoleXRef")
     @GetMapping("/getUserRoleXRef")
