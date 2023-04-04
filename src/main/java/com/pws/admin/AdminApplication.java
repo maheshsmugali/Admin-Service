@@ -1,7 +1,6 @@
 package com.pws.admin;
 
 import com.pws.admin.utility.AuditAwareImpl;
-import com.pws.admin.websocket.MyWebSocketClient;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
